@@ -3,6 +3,8 @@ package com.example.projetoAPIs.model;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +15,8 @@ public class Pizza {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Sabor sabor;
+	@Enumerated(EnumType.STRING)
+	private Sabor sabor = Sabor.QUEIJO;
 	private LocalDateTime dataCriacao = LocalDateTime.now();
 	private Long valor;
 	// private Cliente cliente;
