@@ -15,16 +15,11 @@ public class PizzaDto {
 	}
 
 	private Long id;
-	private String nome;
 	private Sabor sabor;
 	private Long valor;
 
 	public Long getId() {
 		return id;
-	}
-
-	public String getNome() {
-		return nome;
 	}
 
 	public Sabor getSabor() {

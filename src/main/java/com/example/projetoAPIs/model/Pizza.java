@@ -19,6 +19,7 @@ public class Pizza {
 	private Sabor sabor = Sabor.QUEIJO;
 	private LocalDateTime dataCriacao = LocalDateTime.now();
 	private Long valor;
+	private String peso;
 	// private Cliente cliente;
 
 	public Pizza() {
@@ -46,6 +47,22 @@ public class Pizza {
 
 	public void setValor(Long valor) {
 		this.valor = valor;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public String getPeso() {
+		return peso;
+	}
+
+	public void setPeso(String peso) {
+		this.peso = peso;
 	}
 
 }
