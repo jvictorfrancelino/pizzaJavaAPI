@@ -1,0 +1,20 @@
+info:
+  app:
+    name: Pizza API
+    description: API that allows you to create, read, update and delete data through HTTP endpoints for a pizzeria.
+    version: 1.0.0
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=Pizzeria;encrypt=true;trustServerCertificate=true
+    username: sa
+    password: 123456
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.SQLServer2012Dialect
+      ddl-auto: none
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
