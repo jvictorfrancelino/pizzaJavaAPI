@@ -99,7 +99,8 @@ public class PizzaService {
         pizzaResponse.setPizzas(new ArrayList<>());
         String teste = "teste";
         try {
-            if (!repository.existsById((long) pizzaDto.getId())) {
+            Optional<PizzaEntity> pizzaEntityCheck = repository.findById(pizzaDto.getId());
+            if (!pizzaEntityCheck.isPresent()) {
                 pizzaResponse.setMensagem("Pizza ID does not exist in the database!");
                 pizzaResponse.setCodRetorno(404);
                 return pizzaResponse;
