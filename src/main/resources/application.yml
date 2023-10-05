@@ -21,3 +21,9 @@ spring:
 
 jwt:
   secret: javainuse
+
+security:
+  config:
+    prefix: Bearer
+    key: SECRET_KEY
+    expiration: 3600000
