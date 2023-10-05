@@ -4,7 +4,7 @@ import br.com.pizzaAPI.config.SecurityConfig;
 import br.com.pizzaAPI.model.JWTObject;
 import br.com.pizzaAPI.model.Login;
 import br.com.pizzaAPI.model.Session;
-import br.com.pizzaAPI.model.User;
+import br.com.pizzaAPI.entity.UserEntity;
 import br.com.pizzaAPI.repository.UserRepository;
 import br.com.pizzaAPI.util.JWTCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public Session logar(@RequestBody Login login){
-        User user = repository.findByUsername(login.getUsername());
+        UserEntity user = repository.findByUsername(login.getUsername());
         if(user!=null) {
             boolean passwordOk =  encoder.matches(login.getPassword(), user.getPassword());
             if (!passwordOk) {
