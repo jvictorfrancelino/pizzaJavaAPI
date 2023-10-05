@@ -48,7 +48,7 @@ public class PizzaService {
             }
         } else {
             try {
-                Optional<PizzaEntity> pizzaEntity = repository.findById((long) id);
+                Optional<PizzaEntity> pizzaEntity = repository.findById(id);
                 PizzaDTO pizza = new PizzaDTO();
                 if (pizzaEntity.isPresent()) {
                     pizza.setId(pizzaEntity.get().getId());
@@ -99,7 +99,7 @@ public class PizzaService {
         pizzaResponse.setPizzas(new ArrayList<>());
         String teste = "teste";
         try {
-            Optional<PizzaEntity> pizzaEntityCheck = repository.findById(pizzaDto.getId());
+            Optional<PizzaEntity> pizzaEntityCheck = repository.findById( pizzaDto.getId());
             if (!pizzaEntityCheck.isPresent()) {
                 pizzaResponse.setMensagem("Pizza ID does not exist in the database!");
                 pizzaResponse.setCodRetorno(404);
@@ -121,7 +121,7 @@ public class PizzaService {
         return pizzaResponse;
     }
 
-    public PizzaResponse deletePizza(Long id) {
+    public PizzaResponse deletePizza(int id) {
         PizzaResponse pizzaResponse = new PizzaResponse();
         pizzaResponse.setPizzas(new ArrayList<>());
         try {

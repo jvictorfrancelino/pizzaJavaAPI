@@ -54,7 +54,7 @@ public class PizzaController {
 	@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:4200"})
 	@DeleteMapping(value = "/pizzas/{id}", produces = "application/json")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<PizzaResponse> deletePizza(@PathVariable Long id) {
+	public ResponseEntity<PizzaResponse> deletePizza(@PathVariable int id) {
 		return ResponseEntity.ok().body(service.deletePizza(id));
 	}
 

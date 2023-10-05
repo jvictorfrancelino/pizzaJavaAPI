@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.pizzaAPI.model.JWTObject;
+import br.com.pizzaAPI.util.JWTObject;
 import br.com.pizzaAPI.util.JWTCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,10 +1,8 @@
 package br.com.pizzaAPI.util;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.pizzaAPI.model.JWTObject;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -30,7 +28,7 @@ public class JWTCreator {
         object.setSubject(claims.getSubject());
         object.setExpiration(claims.getExpiration());
         object.setIssuedAt(claims.getIssuedAt());
-        object.setRoles(String.valueOf(Arrays.asList((String[]) claims.get("authorities"))));
+        object.setRoles((List<String>) claims.get("authorities"));
         return object;
 
     }
