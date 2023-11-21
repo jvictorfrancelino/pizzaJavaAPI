@@ -21,7 +21,7 @@ public class PizzaService {
 
     public PizzaResponse getPizzas(int id) throws Exception {
         PizzaResponse pizzaResponse = new PizzaResponse();
-        pizzaResponse.setPizzas(new ArrayList<>());
+        pizzaResponse.setPizzasList(new ArrayList<>());
 
         if (id == 0) {
             try {
@@ -39,9 +39,9 @@ public class PizzaService {
                         pizza.setImg("");
                     }
                     pizza.setImg(trimIfNotNull(pizzaEntity.getImg()));
-                    pizzaResponse.getPizzas().add(pizza);
-                    pizzaResponse.setMensagem("Pizzas returned successfully!");
-                    pizzaResponse.setCodRetorno(200);
+                    pizzaResponse.getPizzasList().add(pizza);
+                    pizzaResponse.setMessageCode("Pizzas returned successfully!");
+                    pizzaResponse.setReturnCode(200);
                 }
             } catch (Exception ex) {
                 throw new Exception(ex.getCause());
@@ -56,12 +56,12 @@ public class PizzaService {
                     pizza.setBorder(pizzaEntity.get().getBorder());
                     pizza.setPrice(pizzaEntity.get().getPrice());
                     pizza.setImg(pizzaEntity.get().getImg());
-                    pizzaResponse.getPizzas().add(pizza);
-                    pizzaResponse.setMensagem("Pizza returned successfully!");
-                    pizzaResponse.setCodRetorno(200);
+                    pizzaResponse.getPizzasList().add(pizza);
+                    pizzaResponse.setMessageCode("Pizza returned successfully!");
+                    pizzaResponse.setReturnCode(200);
                 } else {
-                    pizzaResponse.setMensagem("Pizza ID does not exist in the database!");
-                    pizzaResponse.setCodRetorno(404);
+                    pizzaResponse.setMessageCode("Pizza ID does not exist in the database!");
+                    pizzaResponse.setReturnCode(404);
                     return pizzaResponse;
                 }
             } catch (Exception ex) {
@@ -73,36 +73,34 @@ public class PizzaService {
 
     public PizzaResponse createPizza(PizzaDTO pizzaDto) throws Exception {
         PizzaResponse pizzaResponse = new PizzaResponse();
-        pizzaResponse.setPizzas(new ArrayList<>());
+        pizzaResponse.setPizzasList(new ArrayList<>());
 
         try {
             PizzaEntity pizzaEntity = new PizzaEntity();
-
-
             pizzaEntity.setFlavor(trimIfNotNull(pizzaDto.getFlavor()));
             pizzaEntity.setBorder(trimIfNotNull(pizzaDto.getBorder()));
             pizzaEntity.setPrice(pizzaDto.getPrice());
             pizzaEntity.setImg(trimIfNotNull(pizzaDto.getImg()));
             repository.save(pizzaEntity);
             PizzaDTO pizza = new PizzaDTO(pizzaEntity.getId(), pizzaEntity.getFlavor(), pizzaEntity.getBorder(), pizzaEntity.getPrice(), pizzaEntity.getImg());
-            pizzaResponse.getPizzas().add(pizza);
+            pizzaResponse.getPizzasList().add(pizza);
         } catch (Exception ex) {
             throw new Exception(ex.getCause());
         }
-        pizzaResponse.setMensagem("Pizza created successfully!");
-        pizzaResponse.setCodRetorno(201);
+        pizzaResponse.setMessageCode("Pizza created successfully!");
+        pizzaResponse.setReturnCode(201);
         return pizzaResponse;
     }
 
     public PizzaResponse updatePizza(PizzaDTO pizzaDto) throws Exception {
         PizzaResponse pizzaResponse = new PizzaResponse();
-        pizzaResponse.setPizzas(new ArrayList<>());
+        pizzaResponse.setPizzasList(new ArrayList<>());
         String teste = "teste";
         try {
             Optional<PizzaEntity> pizzaEntityCheck = repository.findById( pizzaDto.getId());
             if (!pizzaEntityCheck.isPresent()) {
-                pizzaResponse.setMensagem("Pizza ID does not exist in the database!");
-                pizzaResponse.setCodRetorno(404);
+                pizzaResponse.setMessageCode("Pizza ID does not exist in the database!");
+                pizzaResponse.setReturnCode(404);
                 return pizzaResponse;
             }
             PizzaEntity pizzaEntity = new PizzaEntity();
@@ -115,28 +113,28 @@ public class PizzaService {
         } catch (Exception ex) {
             throw new Exception(ex.getCause());
         }
-        pizzaResponse.setMensagem("Pizza updated successfully!");
-        pizzaResponse.setCodRetorno(201);
-        pizzaResponse.getPizzas().add(pizzaDto);
+        pizzaResponse.setMessageCode("Pizza updated successfully!");
+        pizzaResponse.setReturnCode(201);
+        pizzaResponse.getPizzasList().add(pizzaDto);
         return pizzaResponse;
     }
 
     public PizzaResponse deletePizza(int id) {
         PizzaResponse pizzaResponse = new PizzaResponse();
-        pizzaResponse.setPizzas(new ArrayList<>());
+        pizzaResponse.setPizzasList(new ArrayList<>());
         try {
             Optional<PizzaEntity> pizzaEntity = repository.findById(id);
             if (!pizzaEntity.isPresent()) {
-                pizzaResponse.setMensagem("Pizza ID does not exist in the database!");
-                pizzaResponse.setCodRetorno(404);
+                pizzaResponse.setMessageCode("Pizza ID does not exist in the database!");
+                pizzaResponse.setReturnCode(404);
                 return pizzaResponse;
             }
             repository.deleteById(id);
         } catch (Exception ex) {
             throw new DefaultErrorException("Error to delete a pizza", HttpStatus.I_AM_A_TEAPOT.toString());
         }
-        pizzaResponse.setMensagem("Pizza deleted successfully!");
-        pizzaResponse.setCodRetorno(200);
+        pizzaResponse.setMessageCode("Pizza deleted successfully!");
+        pizzaResponse.setReturnCode(200);
         return pizzaResponse;
     }
 
