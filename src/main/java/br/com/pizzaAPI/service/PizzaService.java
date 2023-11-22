@@ -1,10 +1,16 @@
 package br.com.pizzaAPI.service;
 
+import br.com.pizzaAPI.controller.PizzaController;
 import br.com.pizzaAPI.entity.PizzaEntity;
 import br.com.pizzaAPI.exception.DefaultErrorException;
 import br.com.pizzaAPI.model.PizzaDTO;
 import br.com.pizzaAPI.model.response.PizzaResponse;
 import br.com.pizzaAPI.repository.PizzaRepository;
+import br.com.pizzaAPI.utils.Logs;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,10 +22,13 @@ import java.util.Optional;
 @Service
 public class PizzaService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PizzaService.class);
+
     @Autowired
     private PizzaRepository repository;
 
     public PizzaResponse getPizzas(int id) throws Exception {
+        LOGGER.info("Executing method: getPizzas with id: {}", id);
         PizzaResponse pizzaResponse = new PizzaResponse();
         pizzaResponse.setPizzasList(new ArrayList<>());
 
@@ -72,6 +81,8 @@ public class PizzaService {
     }
 
     public PizzaResponse createPizza(PizzaDTO pizzaDto) throws Exception {
+        Logs.logDtoService("createPizza", new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(pizzaDto), PizzaService.class.getName());
+
         PizzaResponse pizzaResponse = new PizzaResponse();
         pizzaResponse.setPizzasList(new ArrayList<>());
 
@@ -93,6 +104,8 @@ public class PizzaService {
     }
 
     public PizzaResponse updatePizza(PizzaDTO pizzaDto) throws Exception {
+        Logs.logDtoService("updatePizza", new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(pizzaDto), PizzaController.class.getName());
+
         PizzaResponse pizzaResponse = new PizzaResponse();
         pizzaResponse.setPizzasList(new ArrayList<>());
         String teste = "teste";
@@ -119,7 +132,9 @@ public class PizzaService {
         return pizzaResponse;
     }
 
-    public PizzaResponse deletePizza(int id) {
+    public PizzaResponse deletePizza(int id) throws JsonProcessingException {
+        Logs.logDtoService("deletePizza", new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(id), PizzaController.class.getName());
+
         PizzaResponse pizzaResponse = new PizzaResponse();
         pizzaResponse.setPizzasList(new ArrayList<>());
         try {

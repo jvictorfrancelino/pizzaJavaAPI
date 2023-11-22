@@ -5,6 +5,8 @@ import java.net.URI;
 import br.com.pizzaAPI.model.PizzaDTO;
 import br.com.pizzaAPI.model.response.PizzaResponse;
 import br.com.pizzaAPI.service.PizzaService;
+import br.com.pizzaAPI.utils.Logs;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,6 +29,7 @@ public class PizzaController {
 	@GetMapping(value = "/pizzas/", produces = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<PizzaResponse> getPizzas() throws Exception {
+		Logs.logEndpoint("GET", "/api/pizzas/", PizzaController.class.getName());
 		return ResponseEntity.ok().body(service.getPizzas(0));
 	}
 
@@ -35,6 +38,7 @@ public class PizzaController {
 	@GetMapping(value = "/pizzas/{id}", produces = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<PizzaResponse> getPizzaById(@PathVariable int id) throws Exception {
+		Logs.logEndpoint("GET","/api/pizzas/{" + id + "}", PizzaController.class.getName());
 		return ResponseEntity.ok().body(service.getPizzas(id));
 	}
 
@@ -45,7 +49,8 @@ public class PizzaController {
 	public ResponseEntity<PizzaResponse> createPizza(
 			@ApiParam(value = "JSON entry to create a pizza in the database")
 			@RequestBody @Validated PizzaDTO pizzaDto) throws Exception {
-		return ResponseEntity.created(URI.create("/pizzas/create/" )).body(service.createPizza(pizzaDto));
+		Logs.logEndpoint("POST", "/api/pizzas/", PizzaController.class.getName());
+		return ResponseEntity.created(URI.create("/pizzas/")).body(service.createPizza(pizzaDto));
 	}
 
 	@ApiOperation(value = "Updates a pizza in the database", nickname = "/pizzas/", response = PizzaResponse.class)
@@ -53,6 +58,7 @@ public class PizzaController {
 	@PutMapping(value = "/pizzas/", produces = "application/json", consumes="application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<PizzaResponse> updatePizza(@RequestBody PizzaDTO pizzaDto) throws Exception {
+		Logs.logEndpoint("PUT", "/api/pizzas/", PizzaController.class.getName());
 		return ResponseEntity.ok().body(service.updatePizza(pizzaDto));
 	}
 
@@ -60,7 +66,8 @@ public class PizzaController {
 	@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:4200"})
 	@DeleteMapping(value = "/pizzas/{id}", produces = "application/json")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<PizzaResponse> deletePizza(@PathVariable int id) {
+	public ResponseEntity<PizzaResponse> deletePizza(@PathVariable int id) throws JsonProcessingException {
+		Logs.logEndpoint("DELETE", "/api/pizzas/", PizzaController.class.getName());
 		return ResponseEntity.ok().body(service.deletePizza(id));
 	}
 
