@@ -4,11 +4,8 @@ import java.net.URI;
 
 import br.com.pizzaAPI.adapters.input.models.request.PizzaRequest;
 import br.com.pizzaAPI.adapters.input.models.response.PizzaResponse;
-import br.com.pizzaAPI.adapters.input.security.annotation.RequiresToken;
-import br.com.pizzaAPI.domain.useCase.PizzaUseCase;
 import br.com.pizzaAPI.domain.useCase.PizzaUseCaseImpl;
 import br.com.pizzaAPI.util.Logs;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,7 +27,6 @@ public class PizzaController {
 		this.pizzaUseCase = pizzaUseCase;
 	}
 
-	@RequiresToken
 	@ApiOperation(value = "Returns one pizza from the database", nickname = "/pizzas/", response = PizzaResponse.class)
 	@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:4200"})
 	@GetMapping(value = "/pizzas/", produces = "application/json")
