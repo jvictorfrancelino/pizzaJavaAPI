@@ -1,4 +1,4 @@
-package br.com.pizzaAPI.enums;
+package br.com.pizzaAPI.exception;
 
 public enum MessageSystem {
 
@@ -10,10 +10,6 @@ public enum MessageSystem {
     MessageSystem(String code, String error) {
         this.code = code;
         this.error = error;
-    }
-
-    public String getCode() {
-        return this.code;
     }
 
     public String getErro() {

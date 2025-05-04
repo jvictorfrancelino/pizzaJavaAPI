@@ -1,4 +1,4 @@
-package br.com.pizzaAPI.model;
+package br.com.pizzaAPI.adapters.input.models.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,8 +12,8 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel
-public class PizzaDTO {
+@ApiModel(value = "PizzaDTO", description = "Input object for pizza's endpoints")
+public class PizzaRequest {
 
     @ApiModelProperty(value = "id, not required field", position = 1)
     private int id;
@@ -23,7 +23,7 @@ public class PizzaDTO {
     @ApiModelProperty(value = "border, required field", required = true, example = "Cheese", position = 3)
     @NotBlank(message = "The border is mandatory")
     private String border;
-    @ApiModelProperty(value = "price, required field", required = true, example = "50.0",  position = 4)
+    @ApiModelProperty(value = "price, required field", required = true, example = "50.0", position = 4)
     @Min(value = 1, message = "price should not be less than 1")
     private double price;
     @ApiModelProperty(value = "img, not required field", required = false, example = "img", position = 5)

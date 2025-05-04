@@ -1,6 +1,5 @@
 package br.com.pizzaAPI.exception;
 
-import br.com.pizzaAPI.enums.MessageSystem;
 import br.com.pizzaAPI.exception.model.ErroResponse;
 import br.com.pizzaAPI.exception.model.ExceptionResponse;
 import org.springframework.http.HttpStatus;
