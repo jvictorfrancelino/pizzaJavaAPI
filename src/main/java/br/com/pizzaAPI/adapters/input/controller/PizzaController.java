@@ -22,6 +22,10 @@ public class PizzaController {
 
 	private final PizzaUseCaseImpl pizzaUseCase;
 
+	private static final String REQUEST_MAPPING = "/api/v1";
+
+	private static final String APPLICATION_JSON = "/application/json";
+
 	@Autowired
 	public PizzaController(PizzaUseCaseImpl pizzaUseCase) {
 		this.pizzaUseCase = pizzaUseCase;
@@ -29,48 +33,48 @@ public class PizzaController {
 
 	@ApiOperation(value = "Returns one pizza from the database", nickname = "/pizzas/", response = PizzaResponse.class)
 	@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:4200"})
-	@GetMapping(value = "/pizzas/", produces = "application/json")
+	@GetMapping(value = "/pizzas/", produces = APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<PizzaResponse> getPizzas() throws Exception {
-		Logs.logEndpoint("GET", "/api/pizzas/", PizzaController.class.getName());
+		Logs.logEndpoint("GET", REQUEST_MAPPING, PizzaController.class.getName());
 		return ResponseEntity.ok().body(pizzaUseCase.getPizzas(0));
 	}
 
 	@ApiOperation(value = "Returns all pizzas from the database", nickname = "/pizzas/{id}", response = PizzaResponse.class)
 	@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:4200"})
-	@GetMapping(value = "/pizzas/{id}", produces = "application/json")
+	@GetMapping(value = "/pizzas/{id}", produces = APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<PizzaResponse> getPizzaById(@PathVariable int id) throws Exception {
-		Logs.logEndpoint("GET","/api/pizzas/{" + id + "}", PizzaController.class.getName());
+		Logs.logEndpoint("GET", REQUEST_MAPPING + "{" + id + "}", PizzaController.class.getName());
 		return ResponseEntity.ok().body(pizzaUseCase.getPizzas(id));
 	}
 
 	@ApiOperation(value = "Creates a pizza in the database", nickname = "/pizzas/", response = PizzaResponse.class)
 	@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:4200"})
-	@PostMapping(value = "/pizzas/", produces = "application/json", consumes="application/json")
+	@PostMapping(value = "/pizzas/", produces = APPLICATION_JSON, consumes=APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<PizzaResponse> createPizza(
 			@ApiParam(value = "JSON entry to create a pizza in the database")
 			@RequestBody @Validated PizzaRequest pizzaRequest) throws Exception {
-		Logs.logEndpoint("POST", "/api/pizzas/", PizzaController.class.getName());
+		Logs.logEndpoint("POST", REQUEST_MAPPING, PizzaController.class.getName());
 		return ResponseEntity.created(URI.create("/pizzas/")).body(pizzaUseCase.createPizza(pizzaRequest));
 	}
 
 	@ApiOperation(value = "Updates a pizza in the database", nickname = "/pizzas/", response = PizzaResponse.class)
 	@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:4200"})
-	@PutMapping(value = "/pizzas/", produces = "application/json", consumes="application/json")
+	@PutMapping(value = "/pizzas/", produces = APPLICATION_JSON, consumes=APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<PizzaResponse> updatePizza(@RequestBody PizzaRequest pizzaRequest) throws Exception {
-		Logs.logEndpoint("PUT", "/api/pizzas/", PizzaController.class.getName());
+		Logs.logEndpoint("PUT", REQUEST_MAPPING, PizzaController.class.getName());
 		return ResponseEntity.ok().body(pizzaUseCase.updatePizza(pizzaRequest));
 	}
 
 	@ApiOperation(value = "Delete a pizza in the database", nickname = "/pizzas/", response = PizzaResponse.class)
 	@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:4200"})
-	@DeleteMapping(value = "/pizzas/{id}", produces = "application/json")
+	@DeleteMapping(value = "/pizzas/{id}", produces = APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<PizzaResponse> deletePizza(@PathVariable int id) throws Exception {
-		Logs.logEndpoint("DELETE", "/api/pizzas/", PizzaController.class.getName());
+		Logs.logEndpoint("DELETE", REQUEST_MAPPING, PizzaController.class.getName());
 		return ResponseEntity.ok().body(pizzaUseCase.deletePizza(id));
 	}
 
